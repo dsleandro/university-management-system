@@ -1,0 +1,15 @@
+/* SUBJECT DESCRIPTION */
+.my-2 .container {
+    border: 1px solid lightgray;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.itemlist {
+   margin: 5px 0;
+}
+
+.titleDesc {
+    font-weight: bold;
+    margin-right: 3px;
+}

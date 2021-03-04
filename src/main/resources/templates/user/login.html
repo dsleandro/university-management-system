@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ingresar</title>
+
+	<link th:href="@{/css/authForm.css}" rel="stylesheet" />
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+	<div class="formAuthContainer">
+		<div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+		<div class="alert alert-danger" role="alert" th:if="${param.error}">
+			DNI o legajo Incorrecto!
+		</div>
+
+		<form class="col-sm-9 col-xs-12" th:action="@{/login}" method="post">
+			<h1 class="mb-3">Bienvenido!</h1>
+
+			<input type="text" id="dni" name="dni" class="form-control mb-4 col-sm-9 col-xs-12" placeholder="DNI"
+				pattern="[0-9]*" required autofocus>
+
+			<input type="text" id="password" name="password" class="form-control mb-4 col-sm-9 col-xs-12"
+				placeholder="Legajo" required>
+
+			<button class="btn btn-primary col-sm-9 col-xs-12" type="submit">Ingresar</button>
+
+			<div class="mt-4">No estas registrado? <a th:href="@{/signup}">Ir a registrarse</a></div>
+		</form>
+	</div>
+</body>
+
+</html>

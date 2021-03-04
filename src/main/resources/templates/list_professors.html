@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema de gestión de profesores</title>
+
+	<link th:href="@{/css/userAdmin.css}" rel="stylesheet" />
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- FONTAWESOME -->
+	<script src="https://kit.fontawesome.com/5db52d2294.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div class="container my-2">
+		<div class="alert alert-success" role="alert" th:if="${msgRegister}" th:utext="${msgRegister}"></div>
+		<div class="alert alert-danger" role="alert" th:if="${msgDeleted}" th:utext="${msgDeleted}"></div>
+		<h1>Lista de profesores</h1>
+		<div>
+			<a th:href="@{/index}" class="btn btn-light mb-3">Volver</a>
+			<a th:href="@{/admin/addProfessor}" class="btn btn-primary mb-3">Agregar profesor</a>
+		</div>
+		<table class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Apellido</th>
+					<th>DNI</th>
+					<th>Activo</th>
+					<th>Acciónes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="professor : ${listProfessors}">
+					<td th:text="${professor.firstName}"></td>
+					<td th:text="${professor.lastName}"></td>
+					<td th:text="${professor.dni}"></td>
+					<td th:text="${professor.active}"></td>
+					<td>
+						<a th:href="@{/admin/professorUpdate/{id}(id=${professor.id})}"
+							class="btn btn-success">Actualizar</a>
+						<a th:href="@{/admin/professorDelete/{id}(id=${professor.id})}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>

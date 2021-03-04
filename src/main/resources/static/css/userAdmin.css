@@ -1,0 +1,53 @@
+.indexContainer {
+    height: 100%;
+}
+
+.indexContainer h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+.managSystemContainer {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+ 
+}
+
+.managSystem {
+    display: inline-block;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    max-width: 700px !important;
+    padding: 20px;
+}
+
+.managSystem p {
+   text-align: center;
+   font-size: 1.2em;
+}
+
+.managSystem .fa {
+    width: 100%;
+    font-size: 3em;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.managSystem .btn {
+   width: 80%;
+   margin: 20px 10%;
+}
+
+/* Professor */
+
+.professorItem {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 10px;
+    vertical-align: middle;
+    margin: 5px auto;
+}

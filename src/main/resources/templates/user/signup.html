@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Registrarse</title>
+
+	<link th:href="@{/css/authForm.css}" rel="stylesheet" />
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="formAuthContainer">
+		<div class="alert alert-danger" role="alert" th:if="${msg}" th:utext="${msg}"></div>
+
+		<form class="col-sm-9 col-xs-12" role="form" method="post" th:action="@{/signup}" th:object="${user}">
+			<h1 class="mb-3">Registro de Alumno</h1>
+
+			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-sm-9 col-xs-12" id="firstname"
+				placeholder="Nombre" pattern="[a-zA-Z -']*" required autofocus>
+
+			<input type="text" th:field="*{lastName}" class="form-control mb-4 col-sm-9 col-xs-12" id="lastname"
+				placeholder="Apellido" pattern="[a-zA-Z -']*" required>
+
+			<input type="text" th:field="*{dni}" class="form-control mb-4 col-sm-9 col-xs-12" id="dni" placeholder="DNI"
+				pattern="[0-9]*" required>
+
+			<input type="text" th:field="*{password}" class="form-control mb-4 col-sm-9 col-xs-12" id="legajo"
+				placeholder="Legajo" required>
+
+			<button type="submit" class="btn btn-primary col-sm-9 col-xs-12">Registrarse</button>
+
+			<div class="mt-4">Ya tienes una cuenta? <a th:href="@{/login}">Ir a Iniciar sesión</a></div>
+
+		</form>
+	</div>
+</body>
+
+</html>

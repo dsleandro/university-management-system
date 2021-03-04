@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema de gestión de Materias</title>
+
+	<link th:href="@{/css/userStudent.css}" rel="stylesheet" />
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="container my-2">
+		<h1>Descripción de materia</h1>
+		<a class="btn btn-light mb-3" th:href="@{/subjectsListToEnroll}">Volver</a>
+
+		<div class="container" th:object="${subject}">
+			<div class="itemlist">
+				<span class="titleDesc">Nombre: </span> <span class="data" th:text="*{name}"></span>
+			</div>
+			<div class="itemlist">
+				<span class="titleDesc">Horario: </span> <span class="data" th:text="*{schedule}"></span>
+			</div>
+			<div class="itemlist">
+				<span class="titleDesc">Profesor: </span> <span class="data" th:text="*{professor.firstName}"></span>
+			</div>
+			<div class="itemlist">
+				<span class="titleDesc">Cupos: </span> <span class="data" th:text="*{maxQuota}"></span>
+			</div>
+			<div class="itemlist">
+				<span class="titleDesc">Descripción: </span> <span class="data" th:text="*{description}"></span>
+			</div>
+		</div>
+
+	</div>
+</body>
+
+</html>

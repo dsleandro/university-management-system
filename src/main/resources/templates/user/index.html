@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema de gestión de universidad</title>
+
+	<link th:href="@{/css/userAdmin.css}" rel="stylesheet" />
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- FONTAWESOME -->
+	<script src="https://kit.fontawesome.com/5db52d2294.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+	<div class="indexContainer">
+		<a class="btn btn-primary m-3" th:href="@{/logout}">Logout</a>
+
+		<div th:if="${admin}">
+			<h1>Administrator</h1>
+
+			<div class="managSystemContainer">
+
+				<div class="managSystem  col-md-4 col-xs-12">
+					<p>Sistema de gestión de profesores</p>
+					<span class="fa fa-chalkboard-teacher"></span>
+					<a th:href="@{/admin/professors}" class="btn btn-primary">Acceder</a>
+				</div>
+
+				<div class="managSystem col-md-4 col-xs-12">
+					<p>Sistema de gestión de materias</p>
+					<span class="fa fa-book"></span>
+					<a th:href="@{/admin/subjectsList}" class="btn btn-primary">Acceder</a>
+				</div>
+			</div>
+
+		</div>
+		<div th:if="${student}">
+			<h1>Hola <span th:utext="${userName}"></span>!</h1>
+
+			<div class="managSystemContainer">
+
+				<div class="managSystem  col-md-4 col-xs-12">
+					<p>Insicrbirse a materias</p>
+					<span class="fa fa-chalkboard-teacher"></span>
+					<a th:href="@{/subjectsListToEnroll}" class="btn btn-primary">Acceder</a>
+				</div>
+
+				<div class="managSystem col-md-4 col-xs-12">
+					<p>Ver mis Inscrpiciónes</p>
+					<span class="fa fa-book"></span>
+					<a th:href="@{/enrolledSubjectsList}" class="btn btn-primary">Acceder</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+
+</html>

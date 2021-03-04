@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sistema de gestión de Materias</title>
+
+	<link th:href="@{/css/authForm.css}" rel="stylesheet" />
+
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+	<div class="formAuthContainer">
+		<form class="col-sm-9 col-xs-12" action="#" th:action="@{/admin/saveSubject}" th:object="${subject}" method="post">
+			<h1 class="mb-3">Agregar Materia</h1>
+
+			<input type="text" th:field="*{name}" placeholder="Nombre" class="form-control mb-4 col-sm-9 col-xs-12">
+
+			<input type="text" th:field="*{schedule}" placeholder="Horario"
+				class="form-control mb-4 col-sm-9 col-xs-12">
+
+			<select th:field="*{professor}" class="form-control mb-4 col-sm-9 col-xs-12" required>
+				<option value="">Selecciona profesor...</option>
+				<option th:each="professor: ${listProfessors}" th:value="${professor.id}"
+					th:text="${professor.firstName} + ' ' + ${professor.lastName}"></option>
+			</select>
+
+			<input type="number" th:field="*{maxQuota}" placeholder="Numero de Cupos"
+				class="form-control mb-4 col-sm-9 col-xs-12">
+
+			<input type="text" th:field="*{description}" placeholder="Descripción"
+				class="form-control mb-4 col-sm-9 col-xs-12">
+
+			<button type="submit" class="btn btn-primary col-sm-9 col-xs-12">Agregar Materia</button>
+		</form>
+
+		<a class="btn btn-light m-5" th:href="@{/admin/showListSubjects}">Volver</a>
+
+	</div>
+</body>
+
+</html>
