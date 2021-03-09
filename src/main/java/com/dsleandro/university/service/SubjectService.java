@@ -8,6 +8,10 @@ public interface SubjectService {
 
 	List<Subject> getAllSubjects();
 
+	List<Subject> getAllOrderByNameDesc();
+
+	List<Subject> getAllOrderByNameAsc();
+
 	void saveSubject(Subject subject);
 
 	Subject getSubject(int id);

@@ -89,10 +89,13 @@ public class UserController {
 		user.setSubjects(setSubjects);
 		userService.saveUser(user);
 
-		List<Subject> listSubjects = subjectService.getAllSubjects();
+		subject.setMaxQuota(subject.getMaxQuota() - 1);
+		subjectService.saveSubject(subject);
 
-		for (Subject c : setSubjects) {
-			listSubjects.remove(c);
+		List<Subject> listSubjects = subjectService.getAllOrderByNameAsc();
+
+		for (Subject s : setSubjects) {
+			listSubjects.remove(s);
 		}
 		model.addAttribute("msg", "Inscripción exitosa a la materia: \"" + subject.getName() + "\"");
 		model.addAttribute("listSubjects", listSubjects);
@@ -113,6 +116,9 @@ public class UserController {
 		user.setSubjects(setSubjects);
 		userService.saveUser(user);
 
+		subject.setMaxQuota(subject.getMaxQuota() + 1);
+		subjectService.saveSubject(subject);
+
 		model.addAttribute("enrolledSubjectsList", user.getSubjects());
 		model.addAttribute("msg", "Ya no estas inscripto a: \"" + subject.getName() + "\"");
 
@@ -123,7 +129,7 @@ public class UserController {
 	public String subjectsListToEnroll(@AuthenticationPrincipal UserDetails auth, Model model) {
 		User user = userService.findUserByDni(auth.getUsername());
 		Set<Subject> setSubjects = user.getSubjects();
-		List<Subject> listSubjects = subjectService.getAllSubjects();
+		List<Subject> listSubjects = subjectService.getAllOrderByNameAsc();
 
 		for (Subject subject : setSubjects) { // delete subjects where user already enrolled
 			listSubjects.remove(subject);

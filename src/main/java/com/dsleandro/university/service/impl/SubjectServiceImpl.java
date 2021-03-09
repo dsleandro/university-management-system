@@ -14,22 +14,33 @@ import com.dsleandro.university.service.SubjectService;
 public class SubjectServiceImpl implements SubjectService {
 
 	@Autowired
-	private SubjectRepository repository;
+	private SubjectRepository subjectRepository;
 
 	@Override
 	public List<Subject> getAllSubjects() {
-		return repository.findAll();
+		return subjectRepository.findAll();
+	}
+
+	@Override
+	public List<Subject> getAllOrderByNameDesc() {
+		return subjectRepository.findAllByOrderByNameDesc();
+	}
+
+	@Override
+	public List<Subject> getAllOrderByNameAsc() {
+
+		return subjectRepository.findAllByOrderByNameAsc();
 	}
 
 	@Override
 	public void saveSubject(Subject subject) {
-		this.repository.save(subject);
+		this.subjectRepository.save(subject);
 
 	}
 
 	@Override
 	public Subject getSubject(int id) {
-		Optional<Subject> optional = repository.findById(id);
+		Optional<Subject> optional = subjectRepository.findById(id);
 		Subject subject = null;
 
 		if (optional.isPresent()) {
@@ -43,7 +54,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 	@Override
 	public void deleteSubject(int id) {
-		this.repository.deleteById(id);
+		this.subjectRepository.deleteById(id);
 
 	}
 
