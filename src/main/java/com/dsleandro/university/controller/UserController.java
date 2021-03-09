@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.dsleandro.university.entity.Subject;
-import com.dsleandro.university.entity.Role;
 import com.dsleandro.university.entity.User;
 import com.dsleandro.university.service.SubjectService;
-import com.dsleandro.university.service.RoleService;
 import com.dsleandro.university.service.UserService;
 
 @Controller
@@ -29,12 +27,9 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private RoleService roleService;
-
-	@Autowired
 	private SubjectService subjectService;
 
-	@GetMapping(path = { "/", "/login" })
+	@GetMapping(path = "/login")
 	public String loginForm(Model model) {
 
 		model.addAttribute("user", new User());
@@ -69,19 +64,20 @@ public class UserController {
 		return "user/login";
 	}
 
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String index(@AuthenticationPrincipal UserDetails auth, Model model) {
 		User user = userService.findUserByDni(auth.getUsername());
-		Role adminRole = roleService.findRoleByName("ADMIN");
-		Role studentRole = roleService.findRoleByName("STUDENT");
-		Role role = user.getRole();
+
 		model.addAttribute("userName", user.getFirstName() + " " + user.getLastName());
-		model.addAttribute("admin", role.getName().equals(adminRole.getName()) ? user : null);
-		model.addAttribute("student", role.getName().equals(studentRole.getName()) ? user : null);
 		return "user/index";
 	}
 
-	@GetMapping("/enrollSubject/{id}")
+	@GetMapping("/access_denied")
+	public String accessDenied() {
+		return "error/access_denied";
+	}
+
+	@GetMapping("/student/enrollSubject/{id}")
 	public String enrollSubject(@AuthenticationPrincipal UserDetails auth, @PathVariable(value = "id") int id,
 			Model model) {
 
@@ -105,8 +101,9 @@ public class UserController {
 
 	}
 
-	@GetMapping("/unenrollSubject/{id}")
-	public String unenrollSubject(@AuthenticationPrincipal UserDetails auth, @PathVariable(value = "id") int id, Model model) {
+	@GetMapping("/student/unenrollSubject/{id}")
+	public String unenrollSubject(@AuthenticationPrincipal UserDetails auth, @PathVariable(value = "id") int id,
+			Model model) {
 
 		User user = userService.findUserByDni(auth.getUsername());
 		Subject subject = subjectService.getSubject(id);
@@ -118,11 +115,11 @@ public class UserController {
 
 		model.addAttribute("enrolledSubjectsList", user.getSubjects());
 		model.addAttribute("msg", "Ya no estas inscripto a: \"" + subject.getName() + "\"");
-		
+
 		return "student/enrolled_subjects";
 	}
 
-	@GetMapping("/subjectsListToEnroll")
+	@GetMapping("/student/subjectsListToEnroll")
 	public String subjectsListToEnroll(@AuthenticationPrincipal UserDetails auth, Model model) {
 		User user = userService.findUserByDni(auth.getUsername());
 		Set<Subject> setSubjects = user.getSubjects();
@@ -136,7 +133,7 @@ public class UserController {
 		return "student/list_subjects";
 	}
 
-	@GetMapping("/enrolledSubjectsList")
+	@GetMapping("/student/enrolledSubjectsList")
 	public String showListEnrolledSubjects(@AuthenticationPrincipal UserDetails auth, Model model) {
 
 		User user = userService.findUserByDni(auth.getUsername());
@@ -145,7 +142,7 @@ public class UserController {
 		return "student/enrolled_subjects";
 	}
 
-	@GetMapping("/subjectDescription/{id}")
+	@GetMapping("/student/subjectDescription/{id}")
 	public String showSubjectDescription(@PathVariable(value = "id") int id, Model model) {
 		model.addAttribute("subject", subjectService.getSubject(id));
 		return "student/subject_description";

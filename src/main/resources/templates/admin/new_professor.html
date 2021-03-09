@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<html lang="en" xmlns:th="http://www.thymeLeaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta charset="UTF-8">
@@ -15,20 +16,23 @@
 </head>
 
 <body>
-	<div class="formAuthContainer">
+	<div sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="formAuthContainer">
 		<form class="col-sm-9 col-xs-12" action="#" th:action="@{/admin/saveProfessor}" th:object="${professor}"
 			method="post">
 
 			<h1 class="mb-3">Registro de Profesor</h1>
 
-			<input type="text" th:field="*{firstName}" placeholder="Nombre"
-				class="form-control mb-4 col-sm-9 col-xs-12" required>
+			<input th:if="@{professor.id}" type="hidden" th:field="*{id}" />
+			<input type="text" th:field="*{firstName}" placeholder="Nombre" class="form-control mb-4 col-sm-9 col-xs-12" minlength="2" maxlength="30" pattern="[a-zA-Z -'.]*" 
+				required>
 			<input type="text" th:field="*{lastName}" placeholder="Apellido"
-				class="form-control mb-4 col-sm-9 col-xs-12" required>
-			<input type="text" th:field="*{dni}" placeholder="DNI" class="form-control mb-4 col-sm-9 col-xs-12" required>
+				class="form-control mb-4 col-sm-9 col-xs-12" minlength="2" maxlength="30"
+				pattern="[a-zA-Z -'.]*" required>
+			<input type="text" th:field="*{dni}" placeholder="DNI" class="form-control mb-4 col-sm-9 col-xs-12"
+				required minlength="4" maxlength="8" pattern="[0-9]*">
 			<select th:field="*{active}" class="form-control mb-4 col-sm-9 col-xs-12">
-				<option th:value="Yes" th:text="Si"></option>
-				<option th:value="No" th:text="No"></option>
+				<option th:value="true" th:text="Si"></option>
+				<option th:value="false" th:text="No"></option>
 			</select>
 
 			<button type="submit" class="btn btn-primary col-sm-9 col-xs-12">Agregar Profesor</button>

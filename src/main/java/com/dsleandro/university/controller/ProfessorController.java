@@ -28,29 +28,29 @@ public class ProfessorController {
 		model.addAttribute("msgRegister", "El profesor \"" + professor.getFirstName() + " " + professor.getLastName() + "\" ha sido Registrado");
 
 		model.addAttribute("listProfessors", profService.getAllProfessors());
-		return "list_professors";
+		return "admin/list_professors";
 	}
 
 	@GetMapping("/professors")
 	public String ProfessorsList(Model model) {
 		model.addAttribute("listProfessors", profService.getAllProfessors());
-		return "list_professors";
+		return "admin/list_professors";
 	}
 
 	@GetMapping("/addProfessor")
-	public String showNewProfessorForm(Model model) {
+	public String NewProfessorForm(Model model) {
 		Professor professor = new Professor();
 		model.addAttribute("professor", professor);
-		return "new_professor";
+		return "admin/new_professor";
 	}
 
 	@GetMapping("/professorUpdate/{id}")
-	public String updateProfessor(@PathVariable(value = "id") int id, Model model) {
+	public String updateProfessorForm(@PathVariable(value = "id") int id, Model model) {
 		Professor professor = profService.getProfessor(id);
 
 		model.addAttribute("professor", professor);
 
-		return "update_professor";
+		return "admin/new_professor";
 	}
 
 	@GetMapping("/professorDelete/{id}")
@@ -61,6 +61,6 @@ public class ProfessorController {
 		model.addAttribute("msgDeleted", "El profesor \"" + professor.getFirstName() + " " + professor.getLastName()
 				+ "\" ha sido eliminado!");
 		model.addAttribute("listProfessors", profService.getAllProfessors());
-		return "list_professors";
+		return "admin/list_professors";
 	}
 }

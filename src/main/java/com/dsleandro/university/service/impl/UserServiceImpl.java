@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.dsleandro.university.entity.Role;
 import com.dsleandro.university.entity.User;
 import com.dsleandro.university.repository.RoleRepository;
@@ -31,11 +34,12 @@ public class UserServiceImpl implements UserService {
 	public void saveUser(User user) {
 
 		if (!user.isActive()) {
-
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			user.setActive(true);
-			Role userRole = roleRepository.findByName("STUDENT");
-			user.setRole(userRole);
+			
+			Set<Role> roles = new HashSet<>();
+			roles.add(roleRepository.findByName("STUDENT"));
+			user.setRoles(roles);
 		}
 
 		userRepository.save(user);

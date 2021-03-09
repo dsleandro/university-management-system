@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta charset="UTF-8">
@@ -15,14 +16,17 @@
 </head>
 
 <body>
-	<div class="formAuthContainer">
-		<form class="col-sm-9 col-xs-12" action="#" th:action="@{/admin/saveSubject}" th:object="${subject}" method="post">
+	<div sec:authorize="hasAnyAuthority('ROLE_ADMIN')" class="formAuthContainer">
+		<form class="col-sm-9 col-xs-12" action="#" th:action="@{/admin/saveSubject}" th:object="${subject}"
+			method="post">
 			<h1 class="mb-3">Agregar Materia</h1>
 
-			<input type="text" th:field="*{name}" placeholder="Nombre" class="form-control mb-4 col-sm-9 col-xs-12">
+			<input th:if="@{subject.id}" type="hidden" th:field="*{id}" />
+
+			<input type="text" th:field="*{name}" placeholder="Nombre" class="form-control mb-4 col-sm-9 col-xs-12" minlength="3" maxlength="40" required>
 
 			<input type="text" th:field="*{schedule}" placeholder="Horario"
-				class="form-control mb-4 col-sm-9 col-xs-12">
+				class="form-control mb-4 col-sm-9 col-xs-12" minlength="3" maxlength="40" required>
 
 			<select th:field="*{professor}" class="form-control mb-4 col-sm-9 col-xs-12" required>
 				<option value="">Selecciona profesor...</option>
@@ -30,11 +34,11 @@
 					th:text="${professor.firstName} + ' ' + ${professor.lastName}"></option>
 			</select>
 
-			<input type="number" th:field="*{maxQuota}" placeholder="Numero de Cupos"
-				class="form-control mb-4 col-sm-9 col-xs-12">
+			<input type="number" th:field="*{maxQuota}" placeholder="Cantidad de Cupos"
+				class="form-control mb-4 col-sm-9 col-xs-12" min="0" max="100" required>
 
 			<input type="text" th:field="*{description}" placeholder="Descripción"
-				class="form-control mb-4 col-sm-9 col-xs-12">
+				class="form-control mb-4 col-sm-9 col-xs-12" required>
 
 			<button type="submit" class="btn btn-primary col-sm-9 col-xs-12">Agregar Materia</button>
 		</form>

@@ -33,13 +33,13 @@ public class SubjectController {
 		subjectService.saveSubject(subject);
 		model.addAttribute("msgRegister", "La Materia \"" + subject.getName() + "\" ha sido registered registrada!");
 		model.addAttribute("subjectsList", subjectService.getAllSubjects());
-		return "subjects_list";
+		return "admin/subjects_list";
 	}
 
 	@GetMapping("/subjectsList")
 	public String subjectsList(Model model) {
 		model.addAttribute("subjectsList", subjectService.getAllSubjects());
-		return "subjects_list";
+		return "admin/subjects_list";
 	}
 
 	@GetMapping("/addSubjectForm")
@@ -49,24 +49,24 @@ public class SubjectController {
 
 		if (list.isEmpty()) {
 			model.addAttribute("msgError", "Primero agrega un profesor!");
-			return "subjects_list";
+			return "admin/subjects_list";
 		} else {
 
 			model.addAttribute("subject", subject);
 			model.addAttribute("listProfessors", professorService.getAllProfessors());
-			return "new_subject";
+			return "admin/new_subject";
 		}
 
 	}
 
 	@GetMapping("/subjectUpdate/{id}")
-	public String showFormForSubjectUpdate(@PathVariable(value = "id") int id, Model model) {
+	public String SubjectUpdateForm(@PathVariable(value = "id") int id, Model model) {
 		Subject subject = subjectService.getSubject(id);
 
 		model.addAttribute("subject", subject);
 		model.addAttribute("listProfessors", professorService.getAllProfessors());
 
-		return "update_subject";
+		return "admin/new_subject";
 	}
 
 	@GetMapping("/subjectDelete/{id}")
@@ -77,6 +77,6 @@ public class SubjectController {
 		model.addAttribute("msgDeleted", "La materia \"" + subject.getName() + "\" ha sido eliminada!");
 		model.addAttribute("subjectsList", subjectService.getAllSubjects());
 
-		return "subjects_list";
+		return "admin/subjects_list";
 	}
 }

@@ -1,11 +1,10 @@
 package com.dsleandro.university.service.impl;
 
-import java.util.Collections;
-
 import com.dsleandro.university.repository.UserRepository;
+import com.dsleandro.university.entity.CustomUserDetails;
+import com.dsleandro.university.entity.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,9 +21,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String dni) throws UsernameNotFoundException {
 
-        com.dsleandro.university.entity.User user = userRepository.findByDni(dni).orElseThrow(()-> new UsernameNotFoundException("Invalid username"));
+        User user = userRepository.findByDni(dni)
+                .orElseThrow(() -> new UsernameNotFoundException("Could not find user"));
 
-        return new User(dni, user.getPassword(), Collections.emptyList());
+        return new CustomUserDetails(user);
 
     }
 

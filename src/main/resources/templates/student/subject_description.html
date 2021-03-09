@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeLeaf.org">
+<html lang="es" xmlns:th="http://www.thymeLeaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta charset="UTF-8">
@@ -15,9 +16,9 @@
 </head>
 
 <body>
-	<div class="container my-2">
+	<div sec:authorize="hasAnyAuthority('ROLE_STUDENT')" class="container my-2">
 		<h1>Descripción de materia</h1>
-		<a class="btn btn-light mb-3" th:href="@{/subjectsListToEnroll}">Volver</a>
+		<a class="btn btn-light mb-3" th:href="@{/student/subjectsListToEnroll}">Volver</a>
 
 		<div class="container" th:object="${subject}">
 			<div class="itemlist">
@@ -27,7 +28,8 @@
 				<span class="titleDesc">Horario: </span> <span class="data" th:text="*{schedule}"></span>
 			</div>
 			<div class="itemlist">
-				<span class="titleDesc">Profesor: </span> <span class="data" th:text="*{professor.firstName}"></span>
+				<span class="titleDesc">Profesor: </span> <span class="data"
+					th:text="*{professor.firstName}+' '+*{professor.lastName}"></span>
 			</div>
 			<div class="itemlist">
 				<span class="titleDesc">Cupos: </span> <span class="data" th:text="*{maxQuota}"></span>

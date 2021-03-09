@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<html lang="en" xmlns:th="http://www.thymeLeaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
 	<meta charset="UTF-8">
@@ -19,10 +20,10 @@
 
 <body>
 
-	<div class="indexContainer">
+	<div sec:authorize="isAuthenticated()" class="indexContainer">
 		<a class="btn btn-primary m-3" th:href="@{/logout}">Logout</a>
 
-		<div th:if="${admin}">
+		<div sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 			<h1>Administrator</h1>
 
 			<div class="managSystemContainer">
@@ -41,21 +42,21 @@
 			</div>
 
 		</div>
-		<div th:if="${student}">
-			<h1>Hola <span th:utext="${userName}"></span>!</h1>
+		<div sec:authorize="hasAnyAuthority('ROLE_STUDENT')">
+			<h1>Hola <span th:text ="${#authentication.getPrincipal().getFirstName()}"></span>!</h1>
 
 			<div class="managSystemContainer">
 
 				<div class="managSystem  col-md-4 col-xs-12">
 					<p>Insicrbirse a materias</p>
 					<span class="fa fa-chalkboard-teacher"></span>
-					<a th:href="@{/subjectsListToEnroll}" class="btn btn-primary">Acceder</a>
+					<a th:href="@{/student/subjectsListToEnroll}" class="btn btn-primary">Acceder</a>
 				</div>
 
 				<div class="managSystem col-md-4 col-xs-12">
 					<p>Ver mis Inscrpiciónes</p>
 					<span class="fa fa-book"></span>
-					<a th:href="@{/enrolledSubjectsList}" class="btn btn-primary">Acceder</a>
+					<a th:href="@{/student/enrolledSubjectsList}" class="btn btn-primary">Acceder</a>
 				</div>
 			</div>
 

@@ -26,9 +26,9 @@
 			<h1 class="mb-3">Bienvenido!</h1>
 
 			<input type="text" id="dni" name="dni" class="form-control mb-4 col-sm-9 col-xs-12" placeholder="DNI"
-				pattern="[0-9]*" required autofocus>
+				pattern="[0-9]*" minlength="4" maxlength="8" required autofocus>
 
-			<input type="text" id="password" name="password" class="form-control mb-4 col-sm-9 col-xs-12"
+			<input type="text" id="password" name="password" class="form-control mb-4 col-sm-9 col-xs-12" minlength="4" maxlength="255"
 				placeholder="Legajo" required>
 
 			<button class="btn btn-primary col-sm-9 col-xs-12" type="submit">Ingresar</button>
