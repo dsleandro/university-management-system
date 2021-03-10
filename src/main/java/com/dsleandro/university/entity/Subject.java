@@ -48,8 +48,8 @@ public class Subject {
 
 	@PositiveOrZero
 	@Max(100)
-	@Column(name = "max_quota")
-	private int maxQuota;
+	@Column(name = "quotas")
+	private int quotas;
 
 	@NotBlank
 	@Column(name = "description")

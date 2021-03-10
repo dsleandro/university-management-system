@@ -22,16 +22,16 @@
 			<h1 class="mb-3">Registro de Alumno</h1>
 
 			<input type="text" th:field="*{firstName}" class="form-control mb-4 col-sm-9 col-xs-12" id="firstname"
-				placeholder="Nombre" pattern="[a-zA-Z -']*" required autofocus>
+				placeholder="Nombre" minlength="2" maxlength="30" pattern="[a-zA-Z -']*" required autofocus>
 
 			<input type="text" th:field="*{lastName}" class="form-control mb-4 col-sm-9 col-xs-12" id="lastname"
-				placeholder="Apellido" pattern="[a-zA-Z -']*" required>
+				placeholder="Apellido" minlength="2" maxlength="40" pattern="[a-zA-Z -']*" required>
 
 			<input type="text" th:field="*{dni}" class="form-control mb-4 col-sm-9 col-xs-12" id="dni" placeholder="DNI"
-				pattern="[0-9]*" required>
+				minlength="4" maxlength="8" pattern="[0-9]*" required>
 
 			<input type="text" th:field="*{password}" class="form-control mb-4 col-sm-9 col-xs-12" id="legajo"
-				placeholder="Legajo" required>
+				placeholder="Legajo" minlength="4" maxlength="255" required>
 
 			<button type="submit" class="btn btn-primary col-sm-9 col-xs-12">Registrarse</button>
 

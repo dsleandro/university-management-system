@@ -3,6 +3,7 @@ package com.dsleandro.university.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,12 +23,19 @@ public class ProfessorController {
 	private ProfessorService profService;
 
 	@PostMapping("/saveProfessor")
-	public String saveProfessor(@Valid @ModelAttribute("professor") Professor professor, Model model) {
+	public String saveProfessor(@Valid @ModelAttribute("professor") Professor professor, BindingResult bindingResult , Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("professor", professor);
+			return "admin/new_professor";
+		}
+
 		profService.saveProfessor(professor);
 
 		model.addAttribute("msgRegister", "El profesor \"" + professor.getFirstName() + " " + professor.getLastName() + "\" ha sido Registrado");
 
 		model.addAttribute("listProfessors", profService.getAllProfessors());
+
 		return "admin/list_professors";
 	}
 
@@ -39,8 +47,7 @@ public class ProfessorController {
 
 	@GetMapping("/addProfessor")
 	public String NewProfessorForm(Model model) {
-		Professor professor = new Professor();
-		model.addAttribute("professor", professor);
+		model.addAttribute("professor", new Professor());
 		return "admin/new_professor";
 	}
 

@@ -39,7 +39,7 @@
 					<td th:text="${subject.name}"></td>
 					<td th:text="${subject.schedule}"></td>
 					<td th:text="${subject.professor.firstName}"></td>
-					<td th:text="${subject.maxQuota}"></td>
+					<td th:text="${subject.quotas}"></td>
 					<td th:text="${subject.description}"></td>
 					<td>
 						<a th:href="@{/admin/subjectUpdate/{id}(id=${subject.id})}"

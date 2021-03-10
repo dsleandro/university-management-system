@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,17 @@ public class SubjectController {
 	private ProfessorService professorService;
 
 	@PostMapping("/saveSubject")
-	public String saveSubject(@Valid @ModelAttribute("subject") Subject subject, Model model) {
+	public String saveSubject(@Valid @ModelAttribute("subject") Subject subject,
+	BindingResult bindingResult, Model model) {
+
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("subject", subject);
+			model.addAttribute("listProfessors", professorService.getAllProfessors());
+			return "admin/new_subject";
+		}
+		
 		subjectService.saveSubject(subject);
-		model.addAttribute("msgRegister", "La Materia \"" + subject.getName() + "\" ha sido registered registrada!");
+		model.addAttribute("msgRegister", "La Materia \"" + subject.getName() + "\" ha sido registrada!");
 		model.addAttribute("subjectsList", subjectService.getAllSubjects());
 		return "admin/subjects_list";
 	}

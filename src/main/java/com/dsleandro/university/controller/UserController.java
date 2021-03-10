@@ -89,7 +89,7 @@ public class UserController {
 		user.setSubjects(setSubjects);
 		userService.saveUser(user);
 
-		subject.setMaxQuota(subject.getMaxQuota() - 1);
+		subject.setQuotas(subject.getQuotas() - 1);
 		subjectService.saveSubject(subject);
 
 		List<Subject> listSubjects = subjectService.getAllOrderByNameAsc();
@@ -116,7 +116,7 @@ public class UserController {
 		user.setSubjects(setSubjects);
 		userService.saveUser(user);
 
-		subject.setMaxQuota(subject.getMaxQuota() + 1);
+		subject.setQuotas(subject.getQuotas() + 1);
 		subjectService.saveSubject(subject);
 
 		model.addAttribute("enrolledSubjectsList", user.getSubjects());
